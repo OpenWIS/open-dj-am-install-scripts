@@ -1,0 +1,5 @@
+#CONFIG FILE
+GIT=/usr/bin/git				#GIT PATH variable
+REPO=https://github.com/OpenRock/OpenDJ.git 	#repository location
+TAG=2.6.0					#tag/version OpenDJ repository
+

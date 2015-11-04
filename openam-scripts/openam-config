@@ -1,0 +1,7 @@
+# Configuration file for OpenAM downloader
+# Author : Guy Godfroy, Linagora, 2015
+
+REPO=https://github.com/OpenRock/OpenAM.git
+TAG=12.0.0
+GIT=/usr/bin/git
+OPENAM_FOLDER=OpenAM # This variable must match the OpenAM buildpath relatively to the OpenAM repository. Has already been equal to OpenAM and OpenAM/openam
