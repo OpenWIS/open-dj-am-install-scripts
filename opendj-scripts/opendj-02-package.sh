@@ -1,16 +1,16 @@
 #!/bin/bash
-CURRENT_FOLDER=$PWD
 
-echo "#### compressing OpenDJ directory"
+CURRENT_FOLER=$PWD
+
 cd $HOME
-tar -czvf $HOME/OpenDJ.tar.gz OpenDJ
-
-echo "#### building packaging env"
 rpmdev-setuptree
 
-cp $HOME/OpenDJ.tar.gz $HOME/rpmbuild/SOURCES/
+echo "#### compressing OpenDJ directory"
+tar -cvf rpmbuild/SOURCES/OpenDJ.tar.gz OpenDJ
 
-cp $CURRENT_FOLDER/OpenDJ.spec $HOME/rpmbuild/SPECS/
+echo "#### building packaging env"
+
+cp $CURRENT_FOLER/OpenDJ.spec $HOME/rpmbuild/SPECS/
 
 echo "#### packaging starting up"
 rpmbuild -ba $HOME/rpmbuild/SPECS/OpenDJ.spec

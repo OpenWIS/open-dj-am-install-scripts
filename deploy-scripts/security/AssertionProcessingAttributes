@@ -1,0 +1,14 @@
+iplanet-am-saml-attr-map=OpenWISAddress=OpenWISAddress
+iplanet-am-saml-attr-map=OpenWISAddressCity=OpenWISAddressCity
+iplanet-am-saml-attr-map=OpenWISAddressZip=OpenWISAddressZip
+iplanet-am-saml-attr-map=OpenWISAddressState=OpenWISAddressState
+iplanet-am-saml-attr-map=OpenWISAddressCountry=OpenWISAddressCountry
+iplanet-am-saml-attr-map=OpenWISClassOfService=OpenWISClassOfService
+iplanet-am-saml-attr-map=OpenWISBackUps=OpenWISBackUps
+iplanet-am-saml-attr-map=OpenWISProfile=OpenWISProfile
+iplanet-am-saml-attr-map=isMemberOf=isMemberOf
+iplanet-am-saml-attr-map=OpenWISNeedUserAccount=OpenWISNeedUserAccount
+iplanet-am-saml-attr-map=cn=cn
+iplanet-am-saml-attr-map=sn=sn
+iplanet-am-saml-attr-map=givenname=givenname
+iplanet-am-saml-attr-map=mail=mail

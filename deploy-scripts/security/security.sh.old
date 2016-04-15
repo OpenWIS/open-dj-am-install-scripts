@@ -1,0 +1,45 @@
+#!/bin/bash
+
+##### Modify parameters below #####
+
+OPENAM_PATH=/home/openwis/middleware/SSOAdminTools/openam/bin
+OPENAM_URL=http://hacops.lan.par.lng:8080/openam
+REMOTE_URL=http://bouyab.lan.par.lng:8080/openam
+IDPDSC_PREXIX=http://hacops.lan.par.lng:8080/idpdiscovery
+
+##### End of parameters #####
+
+CURRENT=$PWD
+
+# Adapt IDPs config files
+sed -i .bak "s|http://hacops.lan.par.lng:8080/openam|$OPENAM_URL|g" IDP1-meta.xml
+sed -i .bak "s|http://hacops.lan.par.lng:8080/openam|$OPENAM_URL|g" IDP1-extend.xml
+sed -i .bak "s|http://bouyab.lan.par.lng:8080/openam|$REMOTE_URL|g" IDP2-meta.xml
+
+# Create circle of trust
+# Must be done later in the script because ldpDiscovery must be deployed
+# in order to configure the circle of trust in one shot.
+# $OPENAM_PATH/ssoadm create-cot -t cot_openwis -u amAdmin -f passwd
+
+# Deploy ldpDiscovery
+cp idpdiscovery.war /home/openwis/apache-tomcat-7.0.59/webapps
+cp libIDPDiscoveryConfig.properties /home/openwis/apache-tomcat-7.0.59/conf
+# restart 
+
+
+
+# Create fully configured circle of trust
+# WARNING: the --prefix option is totally undocumented and thus cannot be found in any reference manual.
+$OPENAM_PATH/ssoadm create-cot -t cot_openwis -u amAdmin -f $OPENAM_PATH/passwd --prefix $IDPDSC_PREXIX
+
+# Create hosted identity provider
+$OPENAM_PATH/ssoadm import-entity -t cot_openwis -u amAdmin -f $OPENAM_PATH/passwd -m $CURRENT/IDP1-meta.xml -x $CURRENT/IDP1-extend.xml
+
+# Import remote identity provider (if variable is defined)
+$OPENAM_PATH/ssoadm import-entity -t cot_openwis -u amAdmin -f $OPENAM_PATH/passwd -m $CURRENT/IDP2-meta.xml -x $CURRENT/IDP2-extend.xml
+
+# Import remote service provider
+$OPENAM_PATH/ssoadm import-entity -t cot_openwis -u amAdmin -f $OPENAM_PATH/passwd -m $CURRENT/portal-meta.xml
+
+# Attributes matching
+$OPENAM_PATH/ssoadm set-attr-defs -u amAdmin -f /home/openwis/middleware/SSOAdminTools/openam/bin/passwd -D AssertionProcessingAttributes -s iplanetAMSessionService -t dynamic

@@ -1,0 +1,19 @@
+##### Modify parameters below #####
+
+OPENAM_PATH=/home/openwis/middleware
+OPENDJ_PATH=/home/openwis/OpenDJ-2.6.0
+
+OPENAM_URL=http://hacops.lan.par.lng:8080/openam
+#REMOTE_URL=http://bouyab.lan.par.lng:8080/openam
+IDPDSC_PREFIX=http://hacops.lan.par.lng:8080/idpdiscovery
+TOMCAT=/home/openwis/apache-tomcat-7.0.68
+
+# LDAP server / port
+LDAP_SERVER=hacops.lan.par.lng:1389
+
+# LDAP password for cn=Directory Manager
+LDAP_PASSWD=linagora
+
+##### End of parameters #####
+
+

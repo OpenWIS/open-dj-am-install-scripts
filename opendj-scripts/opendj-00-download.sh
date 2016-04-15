@@ -1,8 +1,6 @@
 #!/bin/bash                                                                                                            
 source OpenDJ-config
 
-cd $HOME
-
 $GIT clone $REPO $HOME/OpenDJ
 if [ $? != 0 ]
 then

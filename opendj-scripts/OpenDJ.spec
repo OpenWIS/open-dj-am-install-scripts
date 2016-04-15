@@ -4,7 +4,7 @@ Release:	1%{?dist}
 Summary:	OpenDJ packaging build
 
 Group:		java
-License:	GPL
+License:        CDDL + CC-by-nc-nd
 URL:		http://opendj.forgerock.org
 Source0:	OpenDJ.tar.gz
 
@@ -16,7 +16,7 @@ Requires:	java-1.7.0-openjdk-devel
 
 %prep
 %setup -q -n OpenDJ
-
+getent passwd openwis || useradd -r -d /home/openwis -m openwis
 
 %build
 ./build.sh
@@ -24,8 +24,9 @@ Requires:	java-1.7.0-openjdk-devel
 
 %install
 rm -rf $RPM_BUILD_ROOT
-mkdir -p ${RPM_BUILD_ROOT}/root
-cp -r %{_builddir}/OpenDJ/build/package/OpenDJ-2.6.0 $RPM_BUILD_ROOT/root
+mkdir -p $RPM_BUILD_ROOT/home/openwis
+cp -r %{_builddir}/OpenDJ/build/package/OpenDJ-2.6.0 $RPM_BUILD_ROOT/home/openwis
+chown -R openwis:openwis $RPM_BUILD_ROOT/home/openwis/OpenDJ-2.6.0
 
 
 %clean
@@ -33,9 +34,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %files
-%defattr(-,root,root,-)
+%defattr(-,openwis,openwis,-)
 %doc
-%config(noreplace)  /root/OpenDJ-2.6.0/*
+%dir /home/openwis/OpenDJ-2.6.0
+/home/openwis/OpenDJ-2.6.0/*
 
 
 %changelog
