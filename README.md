@@ -1,3 +1,5 @@
+> UPDATEME (file out of date)
+
 open-dj-am-install-scripts project contains scripts to build openDJ and OpenAM rpms from ForgeRock
 These scripts are generic.
 
