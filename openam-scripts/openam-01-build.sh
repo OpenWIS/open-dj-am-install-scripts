@@ -9,7 +9,7 @@ source openam-config
 
 #### Patch maven configuration ####
 
-cp openam-server-prepare-war.xml $HOME/$OPENAM_FOLDER/openam-server-only/
+# cp openam-server-prepare-war.xml $HOME/$OPENAM_FOLDER/openam-server-only/
 
 #### Compilation ####
 cd $HOME/$OPENAM_FOLDER
