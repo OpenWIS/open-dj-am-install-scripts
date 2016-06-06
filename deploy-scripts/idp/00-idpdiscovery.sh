@@ -5,6 +5,6 @@ source ../deploy_config
 CURRENT=$PWD
 
 # Deploy ldpDiscovery
-cp idpdiscovery.war $TOMCAT/webapps
+cp $OPENAM_PATH/IDPDiscovery-12.0.0.war $TOMCAT/webapps/idpdiscovery.war
 cp libIDPDiscoveryConfig.properties $TOMCAT/conf
 
