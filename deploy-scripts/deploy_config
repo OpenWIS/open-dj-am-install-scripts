@@ -1,18 +1,29 @@
 ##### Modify parameters below #####
 
+# OpenAM user and password
+# Password also used for cn=Directory Manager
+OPENAM_USER=amAdmin
+OPENAM_PASSWD=linagora
+
+# Install pathes
 OPENAM_PATH=/home/openwis/middleware
 OPENDJ_PATH=/home/openwis/OpenDJ-2.6.0
+OPENAM_INSTALL_PATH=/home/openwis/openam
+TOMCAT=/home/openwis/apache-tomcat-7.0.68
 
+# URL to OpenAM and IdP
 OPENAM_URL=http://hacops.lan.par.lng:8080/openam
 #REMOTE_URL=http://bouyab.lan.par.lng:8080/openam
 IDPDSC_PREFIX=http://hacops.lan.par.lng:8080/idpdiscovery
-TOMCAT=/home/openwis/apache-tomcat-7.0.68
 
 # LDAP server / port
 LDAP_SERVER=hacops.lan.par.lng:1389
 
-# LDAP password for cn=Directory Manager
-LDAP_PASSWD=linagora
+# Search base / organization
+ORGANIZATION=dc=linagora,dc=local
+
+# COT name
+COT=cot_openwis
 
 ##### End of parameters #####
 

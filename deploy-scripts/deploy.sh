@@ -22,7 +22,7 @@ fi
 # Setup OpenDJ
 echo "--- Setup OpenDJ"
 $OPENDJ_PATH/setup --cli --propertiesFilePath ./setup_opendj.properties --acceptLicense --no-prompt
-$OPENDJ_PATH/bin/ldapmodify -h localhost -p 4444 -D "cn=Directory Manager" -w linagora -X --useSSL -f ./SchemaOpenWIS.ldif
+$OPENDJ_PATH/bin/ldapmodify -h localhost -p 4444 -D "cn=Directory Manager" -w $OPENAM_PASSWD -X --useSSL -f ./SchemaOpenWIS.ldif
 
 # Start Tomcat, and wait until Tomcat is started
 echo "--- Start Tomcat"
@@ -33,9 +33,10 @@ do
   sleep 2
 done
 
-
 # Setup OpenAM
 echo "--- Setup OpenAM"
+cp spGetToken.jsp $TOMCAT/webapps/openam/
+
 cd SSOConfiguratorTools
 java -jar openam-configurator-tool-11.0.0.jar -f setup_openam.properties
 
@@ -44,37 +45,35 @@ then
 	unzip $OPENAM_PATH/SSOAdminTools-12.0.0.zip -d $OPENAM_PATH/SSOAdminTools
 fi
 cd $OPENAM_PATH/SSOAdminTools
+./setup --acceptLicense -p $OPENAM_INSTALL_PATH
 
-./setup --acceptLicense -p /home/openwis/openam
-
-
-# Create file with amAdmin passwd
+# Create file with openam user passwd
 echo "--- Modify IPlanetAMUserService"
 PASSWD_FILE=$OPENAM_PATH/SSOAdminTools/openam/bin/passwd
 if [ ! -f $PASSWD_FILE ]; then
   touch $PASSWD_FILE
 fi
 chmod 600 $PASSWD_FILE
-echo "linagora" > $PASSWD_FILE
+echo "$OPENAM_PASSWD" > $PASSWD_FILE
 chmod 400 $PASSWD_FILE
 
 cd $OPENAM_PATH/SSOAdminTools/openam/bin
-./ssoadm delete-svc -u amAdmin -f passwd -s iPlanetAMUserService
-./ssoadm create-svc -u amAdmin -f passwd --xmlfile $CURRENT/amUser.xml
+./ssoadm delete-svc -u $OPENAM_USER -f passwd -s iPlanetAMUserService
+./ssoadm create-svc -u $OPENAM_USER -f passwd --xmlfile $CURRENT/amUser.xml
+
 
 # Adapt attrs.properties
 echo "--- Update the Data Store Configuration"
 cd $CURRENT
-sed "s|ldap-server=localhost:1389|ldap-server=$LDAP_SERVER|g" attrs.properties | sed "s|authpw=.*|authpw=$LDAP_PASSWD|g" > $OPENAM_PATH/SSOAdminTools/openam/bin/attrs.properties
+sed "s|ldap-server=localhost:1389|ldap-server=$LDAP_SERVER|g" attrs.properties | sed "s|authpw=.*|authpw=$OPENAM_PASSWD|g" | sed "s|psearchbase=.*|psearchbase=$ORGANIZATION|g" | sed "s|organization_name=.*|organization_name=$ORGANIZATION|g" > $OPENAM_PATH/SSOAdminTools/openam/bin/attrs.properties
 # Update datastore
 cd $OPENAM_PATH/SSOAdminTools/openam/bin
-./ssoadm update-datastore -u amAdmin -f passwd -e / -m OpenDJ -D attrs.properties
+./ssoadm update-datastore -u $OPENAM_USER -f passwd -e / -m OpenDJ -D attrs.properties
 cd $CURRENT
-
 
 # Stop Tomcat, and wait until Tomcat is stopped
 echo "--- Stop Tomcat"
-PID=`ps -axe | grep tomcat | grep java | awk '{print $1}'`
+PID=`ps axe | grep tomcat | grep java | awk '{print $1}'`
 $TOMCAT/bin/shutdown.sh
 while kill -0 $PID 2>/dev/null;
 do
@@ -82,9 +81,9 @@ do
   sleep 2
 done
 
-# Start deploying OpenWIS security
+# Start deploying OpenWIS IdP
 echo "--- Deploy IdpDiscovery"
-cd security
+cd idp
 ./00-idpdiscovery.sh
 
 # Start Tomcat, and wait until Tomcat is started
