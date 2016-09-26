@@ -22,12 +22,12 @@
 # your own identifying information:
 # "Portions Copyrighted [year] [name of copyright owner]"
 #
-# : libIDPDiscoveryConfig.properties,v 1.5 2009/11/03 00:51:11 madan_ranganath Exp $
+# $Id: libIDPDiscoveryConfig.properties,v 1.5 2009/11/03 00:51:11 madan_ranganath Exp $
 #
 
 com.iplanet.services.debug.level=error
-com.iplanet.services.debug.directory=/data/openwis/apache-tomcat-7.0.59/logs/
-com.sun.identity.saml2.idpdiscovery.cookiedomain=.meteo.fr
+com.iplanet.services.debug.directory=${TOMCAT}/logs/
+com.sun.identity.saml2.idpdiscovery.cookiedomain=${COOKIE_DOMAIN}
 com.sun.identity.saml2.idpdiscovery.cookietype=PERSISTENT
 com.iplanet.am.cookie.secure=false
 com.iplanet.am.cookie.encode=true
