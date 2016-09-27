@@ -1,0 +1,15 @@
+#!/bin/bash
+
+function process_identity()
+{
+  item=$1
+  echo -e "retrieve identity card for ${FRONTEND_ITEM}... "
+  wget -O portal-meta.xml.${FRONTEND_ITEM} "${FRONTEND_PORTAL}/openwis-${FRONTEND_ITEM}-portal/saml2/jsp/exportmetadata.jsp"
+  cp portal-meta.xml.${FRONTEND_ITEM} portal-meta.xml
+  echo -e "done"
+  echo -e "\nregister ${FRONTEND_ITEM} service provider..."
+  ./service-prov.sh
+}
+
+process_identity admin
+process_identity user

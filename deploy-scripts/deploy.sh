@@ -19,10 +19,14 @@ then
   exit 1
 fi
 
+# Set OpenDJ and OpenAM configuration files
+echo "--- Prepare OpenDJ and OpenAM configuration files"
+./deploy-configure.sh
+
 # Setup OpenDJ
 echo "--- Setup OpenDJ"
 $OPENDJ_PATH/setup --cli --propertiesFilePath ./setup_opendj.properties --acceptLicense --no-prompt
-$OPENDJ_PATH/bin/ldapmodify -h localhost -p 4444 -D "cn=Directory Manager" -w $OPENAM_PASSWD -X --useSSL -f ./SchemaOpenWIS.ldif
+$OPENDJ_PATH/bin/ldapmodify -h localhost -p 4444 -D "cn=Directory Manager" -w $OPENDJ_PASSWD -X --useSSL -f ./SchemaOpenWIS.ldif
 
 # Start Tomcat, and wait until Tomcat is started
 echo "--- Start Tomcat"
@@ -61,12 +65,10 @@ cd $OPENAM_PATH/SSOAdminTools/openam/bin
 ./ssoadm delete-svc -u $OPENAM_USER -f passwd -s iPlanetAMUserService
 ./ssoadm create-svc -u $OPENAM_USER -f passwd --xmlfile $CURRENT/amUser.xml
 
-
-# Adapt attrs.properties
-echo "--- Update the Data Store Configuration"
-cd $CURRENT
-sed "s|ldap-server=localhost:1389|ldap-server=$LDAP_SERVER|g" attrs.properties | sed "s|authpw=.*|authpw=$OPENAM_PASSWD|g" | sed "s|psearchbase=.*|psearchbase=$ORGANIZATION|g" | sed "s|organization_name=.*|organization_name=$ORGANIZATION|g" > $OPENAM_PATH/SSOAdminTools/openam/bin/attrs.properties
 # Update datastore
+echo "--- Update the Data Store"
+cd $CURRENT
+cp attrs.properties $OPENAM_PATH/SSOAdminTools/openam/bin/attrs.properties
 cd $OPENAM_PATH/SSOAdminTools/openam/bin
 ./ssoadm update-datastore -u $OPENAM_USER -f passwd -e / -m OpenDJ -D attrs.properties
 cd $CURRENT

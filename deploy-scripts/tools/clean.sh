@@ -9,6 +9,4 @@ rm -rf $TOMCAT_PATH/webapps/openam.war
 rm -rf $TOMCAT_PATH/webapps/idpdiscovery
 rm -rf $TOMCAT_PATH/webapps/idpdiscovery.war
 rm -rf $TOMCAT_PATH/conf/libIDPDiscoveryConfig.properties
-echo "--- List Open rpms"
-rpm -qa|grep Open
 echo "*** Uninstall done ***"

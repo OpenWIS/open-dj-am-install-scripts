@@ -16,7 +16,7 @@ Requires:	java-1.7.0-openjdk-devel
 
 %prep
 %setup -q -n OpenDJ
-getent passwd openwis || useradd -r -d /data/openwis -m openwis
+getent passwd openwis || useradd -r -d /home/openwis -m openwis
 
 %build
 ./build.sh
@@ -24,9 +24,9 @@ getent passwd openwis || useradd -r -d /data/openwis -m openwis
 
 %install
 rm -rf $RPM_BUILD_ROOT
-mkdir -p $RPM_BUILD_ROOT/data/openwis
-cp -r %{_builddir}/OpenDJ/build/package/OpenDJ-2.6.0 $RPM_BUILD_ROOT/data/openwis
-chown -R openwis:users $RPM_BUILD_ROOT/data/openwis/OpenDJ-2.6.0
+mkdir -p $RPM_BUILD_ROOT/home/openwis
+cp -r %{_builddir}/OpenDJ/build/package/OpenDJ-2.6.0 $RPM_BUILD_ROOT/home/openwis
+chown -R openwis:openwis $RPM_BUILD_ROOT/home/openwis/OpenDJ-2.6.0
 
 
 %clean
@@ -34,10 +34,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %files
-%defattr(-,openwis,users,-)
+%defattr(-,openwis,openwis,-)
 %doc
-%dir /data/openwis/OpenDJ-2.6.0
-/data/openwis/OpenDJ-2.6.0/*
+%dir /home/openwis/OpenDJ-2.6.0
+/home/openwis/OpenDJ-2.6.0/*
 
 
 %changelog

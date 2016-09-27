@@ -16,7 +16,7 @@ do
   sleep 2
 done
 
-tail -100 $TOMCAT/logs/catalina.out
+tail -15 $TOMCAT/logs/catalina.out
 echo "---"
 echo "*** Tomcat stopped ***"
 echo "stopping openDJ..."

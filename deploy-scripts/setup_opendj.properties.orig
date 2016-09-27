@@ -1,7 +1,7 @@
 #
 # Sample properties file to set up OpenDJ directory server
 #
-hostname                        =wisaut-asso.meteo.fr
+hostname                        =${SERVER_NAME}
 ldapPort                        =1389
 addBaseEntry			=true
 #generateSelfSignedCertificate  =false
@@ -10,5 +10,5 @@ addBaseEntry			=true
 jmxPort                         =2689
 adminConnectorPort              =4444
 rootUserDN                      =cn=Directory Manager
-rootUserPassword                =opendjpwd
-baseDN                          =dc=opensso,dc=java,dc=net
+rootUserPassword                =${OPENDJ_PASSWD}
+baseDN                          =${SUFFIX_SSO}
