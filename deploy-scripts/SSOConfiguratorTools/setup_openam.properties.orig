@@ -30,15 +30,15 @@
 ### returns to a browser when it grants a session ID to a user.
 ###
 #############################################################################
-SERVER_URL=http://wisaut-asso.meteo.fr:8080
+SERVER_URL=${SERVER_URL}${SERVER_PORT}
 DEPLOYMENT_URI=/openam
-BASE_DIR=/data/openwis/openam
+BASE_DIR=${OPENAM_INSTALL_PATH}
 locale=en_US
 PLATFORM_LOCALE=en_US
 AM_ENC_KEY=fQ+XhXV+1g25111JYtGjJ0QsY+tbGYUl
-ADMIN_PWD=openampwd
-AMLDAPUSERPASSWD=linagoraagent
-COOKIE_DOMAIN=.meteo.fr
+ADMIN_PWD=${OPENAM_PASSWD}
+AMLDAPUSERPASSWD=${AMLDAPUSERPASSWD}
+COOKIE_DOMAIN=${COOKIE_DOMAIN}
 
 
 ##############################################################################
@@ -81,13 +81,13 @@ COOKIE_DOMAIN=.meteo.fr
 #############################################################################
 DATA_STORE=embedded
 DIRECTORY_SSL=SIMPLE
-DIRECTORY_SERVER=wisaut-asso.meteo.fr
+DIRECTORY_SERVER=${SERVER_NAME}
 DIRECTORY_PORT=50389
 DIRECTORY_ADMIN_PORT=5444
 DIRECTORY_JMX_PORT=1689
-ROOT_SUFFIX=dc=openam,dc=forgerock,dc=org
+ROOT_SUFFIX=${SUFFIX_OAM}
 DS_DIRMGRDN=cn=Directory Manager
-DS_DIRMGRPASSWD=opendjpwd
+DS_DIRMGRPASSWD=${OPENDJ_PASSWD}
 
 
 ##############################################################################
@@ -181,12 +181,12 @@ DS_DIRMGRPASSWD=opendjpwd
 USERSTORE_TYPE=LDAPv3ForOpenDS
 USERSTORE_SSL=SIMPLE
 #USERSTORE_DOMAINNAME=addc.example.com 
-USERSTORE_HOST=wisaut-asso.meteo.fr
+USERSTORE_HOST=${SERVER_NAME}
 USERSTORE_PORT=1389
-USERSTORE_SUFFIX=dc=opensso,dc=java,dc=net
+USERSTORE_SUFFIX=${SUFFIX_SSO}
 #USERSTORE_SUFFIX=dc=opensso,dc=java,dc=net
 USERSTORE_MGRDN=cn=Directory Manager
-USERSTORE_PASSWD=opendjpwd
+USERSTORE_PASSWD=${OPENDJ_PASSWD}
 
 
 ##############################################################################

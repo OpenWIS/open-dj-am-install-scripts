@@ -1,26 +1,40 @@
 ##### Modify parameters below #####
 
+# OpenDJ password
+# Used when installing and setting up OpenDJ
+OPENDJ_PASSWD=opendjpwd
+
 # OpenAM user and password
-# Password also used for cn=Directory Manager
+# The password must be at least 8 characters in length
+# Password is used for :
+# - default OpenAM administrator (amAdmin)
+# - user who has read and write privileges to the root suffix and schema (Directory Manager)
+# - user who has unrestricted access to the user data store (Directory Manager)
 OPENAM_USER=amAdmin
-OPENAM_PASSWD=linagora
+OPENAM_PASSWD=openampwd
 
 # Install pathes
-OPENAM_PATH=/home/openwis/middleware
-OPENDJ_PATH=/home/openwis/OpenDJ-2.6.0
-OPENAM_INSTALL_PATH=/home/openwis/openam
-TOMCAT=/home/openwis/apache-tomcat-7.0.68
+OPENAM_PATH=/data/openwis/middleware
+OPENDJ_PATH=/data/openwis/OpenDJ-2.6.0
+OPENAM_INSTALL_PATH=/data/openwis/openam
+TOMCAT=/data/openwis/apache-tomcat-7.0.59
 
 # URL to OpenAM and IdP
-OPENAM_URL=http://hacops.lan.par.lng:8080/openam
-#REMOTE_URL=http://bouyab.lan.par.lng:8080/openam
-IDPDSC_PREFIX=http://hacops.lan.par.lng:8080/idpdiscovery
+OPENAM_URL=http://wisaut-asso.meteo.fr:8080/openam
+IDPDSC_PREFIX=http://wisaut-asso.meteo.fr:8080/idpdiscovery
 
-# LDAP server / port
-LDAP_SERVER=hacops.lan.par.lng:1389
+# Extra OpenWis parameters
+SERVER_NAME=wisaut-asso.meteo.fr
+SERVER_URL=http://wisaut-asso.meteo.fr
+SERVER_PORT=:8080
+AMLDAPUSERPASSWD=linagoraagent
+COOKIE_DOMAIN=.meteo.fr
+SUFFIX_OAM=dc=openam,dc=forgerock,dc=org
+SUFFIX_SSO=dc=opensso,dc=java,dc=net
 
-# Search base / organization
-ORGANIZATION=dc=linagora,dc=local
+# Portal parameters
+FRONTEND_PORTAL=http://wisp-asso.meteo.fr
+FRONTEND_ITEM=\${item}
 
 # COT name
 COT=cot_openwis

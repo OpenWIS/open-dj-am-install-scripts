@@ -86,7 +86,7 @@
         </Attribute>
         <Attribute name="saeAppSecretList"/>
         <Attribute name="saeIDPUrl">
-            <Value>http://hacops.lan.par.lng:8080/openam/idpsaehandler/metaAlias/idp</Value>
+            <Value>http://wisaut-asso.meteo.fr:8080/openam/idpsaehandler/metaAlias/idp</Value>
         </Attribute>
         <Attribute name="AuthUrl">
             <Value/>
