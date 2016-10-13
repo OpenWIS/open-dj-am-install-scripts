@@ -33,8 +33,8 @@ SUFFIX_OAM=dc=openam,dc=forgerock,dc=org
 SUFFIX_SSO=dc=opensso,dc=java,dc=net
 
 # Portal parameters
-FRONTEND_PORTAL=http://wisp-asso.meteo.fr
-FRONTEND_ITEM=\${item}
+USER_PORTAL_URL=http://wisp-asso.meteo.fr/openwis-user-portal
+ADMIN_PORTAL_URL=http://wisp-asso.meteo.fr/openwis-admin-portal
 
 # COT name
 COT=cot_openwis
