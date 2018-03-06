@@ -1,10 +1,9 @@
 #Three setup steps
 #first, wipe out everything in the local maven repo, ie, everything in the .m2 folder.
 
-#second, copy cddl license artifact. My cddl maven artifact is located in folder
- #$HOME/.m2-backup-12-6-2017/repository/org/forgerock/cddl-license
- #we need to copy it into the .m2 maven repo.
- cp -R $HOME/.m2-backup-12-6-2017/repository/org/forgerock/cddl-license $HOME/.m2/repository/org/forgerock/
+#second, copy cddl license artifact. The cddl maven artifact is located in folder cddl-license
+#we need to copy it into the .m2 maven repo in a specific location.
+ cp -R cddl-license $HOME/.m2/repository/org/forgerock/
 
 #third, make a working directory where you are working from within.
  #my working directory is called openDJAndOpenAMCommunityInstallTest
