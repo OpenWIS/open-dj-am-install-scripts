@@ -1,4 +1,6 @@
-COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Version 1.0 
+
+
+echo "COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Version 1.0 
 
 1. Definitions. 
 
@@ -284,4 +286,245 @@ the laws of the State of California (excluding conflict-of-law provisions).
 Any litigation relating to this License shall be subject to the jurisdiction of 
 the Federal Courts of the Northern District of California and the state courts 
 of the State of California, with venue lying in Santa Clara County, California.
+" > licence.txt
 
+mvn install:install-file -DgroupId=org.forgerock -DartifactId=cddl-license -Dversion=1.0.0 -Dpackaging=txt -Dfile=licence.txt
+
+# delete if already exists
+rm -rf openDJAndOpenAMCommunityLibs
+
+mkdir openDJAndOpenAMCommunityLibs
+cd openDJAndOpenAMCommunityLibs
+
+#after setting up, run the script below
+
+#build parent
+ mkdir ForgerockParent
+ cd ForgerockParent
+ git clone https://stash.forgerock.org/scm/commons/forgerock-parent-public.git
+ cd forgerock-parent-public
+ git checkout master
+ mvn clean install
+ git checkout 2.0.3
+ mvn clean install
+ git checkout 1.0.0
+ mvn clean install
+ git checkout 2.0.4
+ mvn clean install
+ git checkout 1.2.1
+ mvn clean install
+ git checkout 1.2.0
+ mvn clean install
+ git checkout 1.2.9
+ mvn clean install
+ cd ../../
+
+#build forgerock-bom
+ mkdir forgerock-bom
+ cd forgerock-bom
+ git clone https://stash.forgerock.org/scm/legacycommons/forgerock-bom-public.git
+ cd forgerock-bom-public
+ git checkout master
+ mvn clean install
+ git checkout forgerock-bom-2.1.0
+ mvn clean install
+ git checkout forgerock-bom-1.0.0
+ mvn clean install
+ git checkout 4.0.0
+ mvn clean install
+ git checkout 3.0.0
+ mvn clean install
+ cd ../../
+
+#build forgerock-build-tools
+ mkdir build-tools
+ cd build-tools
+ git clone https://stash.forgerock.org/scm/commons/forgerock-build-tools-public.git
+ cd forgerock-build-tools-public
+ git checkout 1.0.2
+ mvn clean install
+ git checkout master
+ mvn clean install
+ git checkout 1.0.3
+ mvn clean install
+ cd ../../
+
+#build forgerock-util
+ mkdir util
+ cd util
+ git clone https://stash.forgerock.org/scm/legacycommons/forgerock-util-public.git
+ cd forgerock-util-public
+ git checkout master
+ mvn clean install
+ git checkout 2.0.0
+ mvn clean install
+ git checkout 3.0.1
+ mvn clean install
+ cd ../../
+
+#build i18n
+ mkdir i18n
+ cd i18n
+ git clone https://stash.forgerock.org/scm/commons/i18n-framework-public.git
+ cd i18n-framework-public
+ git checkout master
+ mvn clean install
+ git checkout 1.4.1
+ mvn clean install
+ cd ../../
+
+#build guice
+ mkdir guice
+ cd guice
+ git clone https://stash.forgerock.org/scm/commons/forgerock-guice-public.git
+ cd forgerock-guice-public
+ git checkout master
+ mvn clean install -DskipTests
+ git checkout 1.1.0
+ mvn clean install -DskipTests
+ cd ../../
+
+#build http
+ mkdir http
+ cd http
+ git clone https://stash.forgerock.org/scm/legacycommons/forgerock-http-framework-public.git
+ cd forgerock-http-framework-public
+ git checkout master
+ mvn clean install
+ git checkout 3.0.0
+ mvn clean install
+ git checkout 1.0.0
+ mvn clean install
+ cd ../../
+
+#build rest
+ mkdir rest
+ cd rest
+ git clone https://stash.forgerock.org/scm/legacycommons/forgerock-rest-public.git
+ cd forgerock-rest-public
+ git checkout master
+ mvn clean install
+ git checkout 3.0.0
+ mvn clean install
+ cd ../../
+
+#build openDJ sdk
+ mkdir opendj-sdk
+ cd opendj-sdk
+ git clone https://stash.forgerock.org/scm/opendj/opendj-sdk-public.git
+ cd opendj-sdk-public
+ git checkout master
+ mvn clean install
+ git checkout 3.0.0
+ mvn clean install
+ cd ../../
+
+#build audit #igonore if it fails:
+
+ mkdir audit
+ cd audit
+ git clone https://stash.forgerock.org/scm/legacycommons/forgerock-audit-public.git
+ cd forgerock-audit-public
+ mvn clean install -DskipTests
+ cd ../../
+
+
+
+#build persistit
+ mkdir persistit
+ cd persistit
+ git clone https://stash.forgerock.org/scm/commons/forgerock-persistit-public.git
+ cd forgerock-persistit-public
+ mvn clean install -DskipTests
+ cd ../../
+
+#build openDJ
+ mkdir openDJ-3.0.0
+ cd openDJ-3.0.0
+ git clone https://stash.forgerock.org/scm/opendj/opendj-public.git
+ cd opendj-public
+ mvn clean install
+ cd ../..
+
+#build jason-web-token
+ mkdir json-web-token
+ cd json-web-token
+ git clone https://stash.forgerock.org/scm/legacycommons/json-web-token-public.git
+ cd json-web-token-public
+ git checkout 3.0.2
+ mvn clean install
+ cd ../..
+
+#build guava
+ mkdir guava
+ cd guava
+ git clone https://stash.forgerock.org/scm/commons/forgerock-guava-public.git
+ cd forgerock-guava-public
+ git checkout 18.0.3
+ mvn clean install
+ cd ../..
+
+#build bloomfilter
+ mkdir bloomfilter
+ cd bloomfilter
+git clone https://stash.forgerock.org/scm/commons/forgerock-bloomfilter-public.git
+ cd forgerock-bloomfilter-public
+ git checkout 1.0.1
+ mvn clean install
+ cd ../..
+
+#build auth-filters
+ mkdir auth-filters
+ cd auth-filters
+ git clone https://stash.forgerock.org/scm/legacycommons/forgerock-auth-filters-public.git
+ cd forgerock-auth-filters-public
+ mvn clean install
+ cd ../..
+
+
+
+#build selfservice
+ #we will get errors here, but this does not matter. Just go ahead
+ mkdir selfservice
+ cd selfservice
+ git clone https://stash.forgerock.org/scm/legacycommons/forgerock-selfservice-public.git
+ cd forgerock-selfservice-public
+ mvn clean install
+ cd ../..
+
+
+#build openAM
+ #we will get errors here, but this does not matter. Just go ahead to build openWIS.
+ mkdir openAM
+ cd openAM
+ git clone https://stash.forgerock.org/scm/openam/openam-public.git
+ cd openam-public
+ mvn clean install
+ #cd ../..
+
+mvn clean install -pl openam-shared -am 
+mvn clean install -pl openam-schema -am
+
+
+cd  openam-schema
+mvn clean install -pl openam-liberty-schema -am
+mvn clean install -pl openam-saml2-schema -am
+mvn clean install -pl openam-xacml3-schema -am
+mvn clean install -pl openam-wsfederation-schema -am
+cd ..
+ 
+cd openam-certs
+mvn clean install
+cd ..
+ 
+mvn clean install -pl openam-federation -am
+cd openam-federation
+mvn clean install -pl openam-federation-library -am
+mvn clean install -pl openam-idpdiscovery -am
+cd ..
+
+mvn clean install -pl openam-shared -am
+cd ../..
+
+
+#Now we get everything needed in the repo. go ahead and build openWIS.
